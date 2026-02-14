@@ -6,15 +6,30 @@
 <title>Carta de San Valentín</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{
+body {
+    touch-action: manipulation;
     font-family:'Segoe UI',sans-serif;
-    height:100vh;
+    color:#000; /* texto negro de día */
     overflow:hidden;
+    height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
+    margin: 0;
+    background: #ffc0cb; /* rosa de día */
+}
+
+/* Modo noche */
+body.noche {
     background: radial-gradient(circle at bottom, #0d1b2a, #000814 70%);
-    color:#fff;
+    color: white; /* texto blanco en noche */
+}
+
+body.noche .sobre {
+    background: #ff4b81;
+}
+body.noche .solapa {
+    background: #ff1f6e;
 }
 
 /* Pantallas */
@@ -353,5 +368,6 @@ Te quiero mucho.`;
 </script>
 </body>
 </html>
+
 
 
