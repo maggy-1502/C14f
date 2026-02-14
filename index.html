@@ -29,6 +29,7 @@ body{
     left: 0;
     z-index: -1;
     overflow: hidden;
+    pointer-events: none;
 }
 
 .estrella-fondo {
@@ -52,10 +53,13 @@ body{
     justify-content:center;
     align-items:center;
     transition:opacity 1s;
+    pointer-events: auto;
 }
 .oculto{display:none;}
 /* Botón */
 button{
+    position: relative;
+    z-index: 10;
     padding:10px 20px;
     font-size:1.2rem;
     background-color:#ff6b81;
@@ -451,6 +455,7 @@ function crearExplosion(e) {
 </script>
 </body>
 </html>
+
 
 
 
