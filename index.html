@@ -154,6 +154,7 @@ button:hover{transform:scale(1.1);}
     display: flex;
     justify-content: center;
     align-items: center;
+    transform: none;
 }
 
 #corazon-final span {
@@ -310,6 +311,7 @@ Te quiero mucho.`;
                         sobre.classList.remove("abierto");
                         setTimeout(()=>{
                             pantallaCarta.classList.add("oculto");
+                            mostrarFinal();
                             function mostrarFinal() {
     const contenedor = document.getElementById('contenedor-corazon-final');
     const corazonFinal = document.getElementById('corazon-final');
@@ -323,28 +325,21 @@ Te quiero mucho.`;
 }
 
 function crearCorazonEstrellas(){
-    const centerX = window.innerWidth / 2;
-    const centerY = window.innerHeight / 2; // mismo centro que el rojo
-    const scale = 12; // más grande si quieres
+    const centerX = window.innerWidth/2;
+    const centerY = window.innerHeight/2;
+    const scale = Math.min(window.innerWidth, window.innerHeight)/50; // escala proporcional
     const total = 160;
 
-    for (let i = 0; i < total; i++) {
+    for(let i=0;i<total;i++){
         const t = i / total * Math.PI * 2;
-        const x = scale * 16 * Math.pow(Math.sin(t), 3);
-        const y = -scale * (
-            13 * Math.cos(t)
-            - 5 * Math.cos(2 * t)
-            - 2 * Math.cos(3 * t)
-            - Math.cos(4 * t)
-        );
-
-        const star = document.createElement("div");
-        star.className = "estrella";
-        star.textContent = "★";
-
-        star.style.left = (centerX + x) + "px";
-        star.style.top  = (centerY + y) + "px"; // alineado vertical con el rojo
-        star.style.fontSize = (Math.random() * 4 + 8) + "px"; // tamaño variable
+        const x = scale * 16 * Math.pow(Math.sin(t),3);
+        const y = -scale*(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t));
+        const star = document.createElement('div');
+        star.className='estrella';
+        star.textContent='★';
+        star.style.left = centerX+x+'px';
+        star.style.top = centerY+y+'px';
+        star.style.fontSize = (Math.random()*4+8)+'px';
         document.body.appendChild(star);
     }
 }
@@ -375,29 +370,28 @@ function crearCorazonEstrellas(){
 
     // CIELO ESTRELLADO
     function crearCielo(){
-        const cielo = document.createElement('div');
-        cielo.className='cielo';
-        document.body.appendChild(cielo);
-        const totalEstrellas = 150;
-        for(let i=0;i<totalEstrellas;i++){
-            const e=document.createElement('div');
-            e.className='estrella-fondo';
-            e.textContent='★';
-            const s = Math.random();
-            if(s<0.6) e.style.fontSize='6px';
-            else if(s<0.9) e.style.fontSize='9px';
-            else e.style.fontSize='12px';
-            e.style.opacity=Math.random()*0.7+0.3;
-            e.style.left=Math.random()*window.innerWidth+'px';
-            e.style.top=Math.random()*window.innerHeight+'px';
-            cielo.appendChild(e);
-        }
+    const cielo = document.createElement('div');
+    cielo.className='cielo';
+    cielo.style.zIndex=1; // ahora estará encima del fondo, debajo de la carta
+    document.body.appendChild(cielo);
+    const totalEstrellas = 150;
+    for(let i=0;i<totalEstrellas;i++){
+        const e = document.createElement('div');
+        e.className='estrella-fondo';
+        e.textContent='★';
+        const s = Math.random();
+        e.style.fontSize = s<0.6?'6px':s<0.9?'9px':'12px';
+        e.style.opacity = Math.random()*0.7+0.3;
+        e.style.left = Math.random()*window.innerWidth+'px';
+        e.style.top = Math.random()*window.innerHeight+'px';
+        cielo.appendChild(e);
     }
-    crearCielo();
 }
+crearCielo();
 </script>
 </body>
 </html>
+
 
 
 
