@@ -163,6 +163,7 @@ button:hover{transform:scale(1.1);}
     animation:caer linear forwards;
     pointer-events: none;
     user-select: none;
+    z-index: 50;
 }
 @keyframes caer{
     from {
@@ -325,8 +326,11 @@ Te quiero mucho.`;
                             pantallaCarta.classList.add("oculto");
                             corazonFinal.style.display = "block";
                             corazonFinal.style.animationPlayState = "running";
-                            crearLluviaCorazones();
                             crearCorazonEstrellas();
+
+                            setTimeout (() => {
+                                crearLluviaCorazones();
+                            },400);
                         }, 1200);
 
                     }, 1200);
@@ -348,13 +352,14 @@ Te quiero mucho.`;
 
             document.body.appendChild(heart);
             setTimeout(() => heart.remove(), 6000);
-        }, 350);
+        }, 600);
     }
 
     // ⭐ corazón de estrellas
     function crearCorazonEstrellas() {
-        const cx = window.innerWidth / 2;
-        const cy = window.innerHeight / 2;
+        const rect = corazonFinal.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
         const scale = 12;
         const total = 140;
 
@@ -405,6 +410,7 @@ Te quiero mucho.`;
 </script>
 </body>
 </html>
+
 
 
 
