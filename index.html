@@ -285,11 +285,13 @@ Te quiero mucho.`;
     if (hora >= 18 || hora < 6) body.classList.add('noche');
 
     // Botón Siguiente
-    btnSiguiente.addEventListener("pointerdown",siguientePantalla); () => {
-        pantallaInicial.classList.add('oculto');
-        pantallaCarta.classList.remove('oculto');
-        sobre.classList.add('visible');
-    });
+    window.addEventListener("DOMContentLoaded", () => {
+
+    const boton = document.getElementById("btnSiguiente");
+
+    boton.addEventListener("click", siguientePantalla);
+
+});
 
     // Abrir sobre
     sobre.addEventListener('click', () => {
@@ -452,10 +454,15 @@ function crearExplosion(e) {
     }
 }
 }
+    function siguientePantalla() {
+    console.log("Botón funcionando");
+    // tu código para cambiar pantalla
+}
     }
 </script>
 </body>
 </html>
+
 
 
 
