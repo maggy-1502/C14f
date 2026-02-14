@@ -148,6 +148,11 @@ button:hover{transform:scale(1.1);}
 }
 
 #corazon-final{
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    width: max-content;
+    height: max-content;
     font-size: 8rem;
     animation: latido 1.5s infinite;
     animation-play-state: paused;
@@ -262,9 +267,7 @@ body.noche .solapa{background:#ff1f6e;}
 </div>
 
 <!-- Corazón final -->
-    <div id="contenedor-final">
 <div id="corazon-final">❤️</div>
-    </div>
 
 <!-- Música -->
 <audio id="musica" src="es-verdad-video-oficial.mp3"></audio>
@@ -364,34 +367,35 @@ Te quiero mucho.`;
     }
 
     // ⭐ corazón de estrellas
-    function crearCorazonEstrellas() {
-        const contenedor = getElementById("contenedor-final");
-        const rect = contenedor.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2 + 35;
-        const scale = 9;
-        const total = 140;
 
-        for (let i = 0; i < total; i++) {
-            const t = i / total * Math.PI * 2;
-            const x = scale * 16 * Math.pow(Math.sin(t), 3);
-            const y = -scale * (
-                13 * Math.cos(t)
-                - 5 * Math.cos(2*t)
-                - 2 * Math.cos(3*t)
-                - Math.cos(4*t)
-            );
+    function crearCorazonEstrellas(){
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+    const scale = 9;
+    const total = 140;
 
-            const star = document.createElement("div");
-            star.className = "estrella";
-            star.textContent = "★";
-            star.style.left = (cx + x) + "px";
-            star.style.top = (cy + y) + "px";
-            star.style.fontSize = (Math.random() * 4 + 8) + "px";
+    for (let i = 0; i < total; i++) {
+        const t = i / total * Math.PI * 2;
 
-            document.body.appendChild(star);
-        }
+        const x = scale * 16 * Math.pow(Math.sin(t), 3);
+        const y = -scale * (
+            13 * Math.cos(t)
+            - 5 * Math.cos(2 * t)
+            - 2 * Math.cos(3 * t)
+            - Math.cos(4 * t)
+        );
+
+        const star = document.createElement("div");
+        star.className = "estrella";
+        star.textContent = "★";
+
+        star.style.left = (centerX + x) + "px";
+        star.style.top  = (centerY + y + 22) + "px"; // compensación real
+
+        star.style.fontSize = "10px";
+        document.body.appendChild(star);
     }
+}
 
     // 💥 corazones touch
     document.body.addEventListener("pointerdown", (e) => {
@@ -419,6 +423,7 @@ Te quiero mucho.`;
 </script>
 </body>
 </html>
+
 
 
 
