@@ -151,14 +151,22 @@ button:hover{transform:scale(1.1);}
 }
 /* Lluvia de corazones */
 .corazon-flotante{
-    position:absolute;
-    font-size:1.5rem;
-    animation:flotar 5s linear infinite;
-    filter:drop-shadow(0 0 6px rgba(255,75,129,0.6));
+    position:fixed;
+    top: -40px;
+    font-size:18px;
+    animation:caer linear forwards;
+    pointer-events: none;
+    user-select: none;
 }
-@keyframes flotar{
-    0%{transform:translateY(-10vh) rotate(0deg);opacity:1;}
-    100%{transform:translateY(100vh) rotate(360deg);opacity:0;}
+@keyframes caer{
+    from {
+        transform:translate(0, 0);
+        opacity:1;
+    }
+    to {
+        transform:translate(var(--viento),100vh);
+        opacity:0;
+    }
 }
 /* Modo noche */
 body.noche{background:#2c003e;color:white;}
@@ -307,11 +315,14 @@ Te quiero mucho.`;
             heart.style.left = Math.random() * window.innerWidth + 'px';
             heart.style.top = '-50px';
             const size = Math.random() * 1.5 + 0.8;
-            heart.style.fontSize = size + 'rem';
+            heart.style.fontSize = size + "px";
             heart.style.color = '#ff4b81';
-            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
             heart.innerText = '❤️';
+            const duration = Math.random() * 3 + 4;
+            heart.style.animationDuration = duration + "s";
             document.body.appendChild(heart);
+            const viento = Math.random() > 0.5 ? "30px" : "-30px";
+            heart.style.setProperty("--viento",viento);
             setTimeout(() => heart.remove(), 6000);
         }, 300);
         if (document.querySelectorAll('.corazon').length > 40) return;
@@ -386,3 +397,4 @@ crearCielo();
 </script>
 </body>
 </html>
+
