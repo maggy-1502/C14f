@@ -7,47 +7,20 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
-    touch-action: manipulation;
     font-family:'Segoe UI',sans-serif;
-    background:#ffc0cb;
-    color:#fff;
     overflow:hidden;
     height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-     margin: 0;
-    overflow: hidden;
     background: radial-gradient(circle at bottom, #0d1b2a, #000814 70%);
+    color:white;
+    touch-action: manipulation;
 }
 
-/* contenedor del cielo */
-.cielo {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 0;
-    overflow: hidden;
-    pointer-events: none;
-}
-
-.estrella-fondo {
-    position: absolute;
-    color: white;
-    pointer-events: none;
-    animation: titilar 3s infinite alternate;
-}
-
-@keyframes titilar {
-    from { opacity: 0.3; }
-    to { opacity: 1; }
-}
 /* Pantallas */
 .pantalla{
     position:relative;
-    z-index: 5;
     width:100%;
     height:100%;
     display:flex;
@@ -55,13 +28,11 @@ body{
     justify-content:center;
     align-items:center;
     transition:opacity 1s;
-    pointer-events: auto;
 }
 .oculto{display:none;}
+
 /* Botón */
 button{
-    position: relative;
-    z-index: 9999;
     padding:10px 20px;
     font-size:1.2rem;
     background-color:#ff6b81;
@@ -70,9 +41,10 @@ button{
     cursor:pointer;
     color:white;
     margin-top:20px;
-    transition:transform 0.2s;
+    z-index:9999;
 }
 button:hover{transform:scale(1.1);}
+
 /* Sobre 3D */
 .sobre{
     width:260px;
@@ -105,16 +77,10 @@ button:hover{transform:scale(1.1);}
     height:50%;
     transform-origin:top;
     transition:transform 1.2s ease;
-    z-index:3;
 }
-/* ABIERTA */
-.sobre.abierto .solapa-contenedor{
-    transform:rotateX(-160deg);
-}
-/* CERRADA */
-.sobre.cerrado .solapa-contenedor{
-    transform:rotateX(0deg);
-}
+.sobre.abierto .solapa-contenedor{transform:rotateX(-160deg);}
+.sobre.cerrado .solapa-contenedor{transform:rotateX(0deg);}
+
 /* Carta */
 .carta{
     width:300px;
@@ -136,84 +102,78 @@ button:hover{transform:scale(1.1);}
 }
 .carta.mostrada{opacity:1; transform:translate(-50%, -50%) translateY(-40px);}
 .carta.guardada{opacity:0; transform:translate(-50%, -50%) translateY(80px);}
+
 /* Corazón final */
 #contenedor-corazon-final{
     position: fixed;
-    inset: 0;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 20;
-    pointer-events: none;
+    inset:0;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:20;
 }
-
-#corazon-final{
-    width: 160px;
-    height: 160px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transform: translateY(6px);
-}
-
 #corazon-final span{
-    font-size: 8rem;
-    line-height: 1;
-    display: block;
-    animation: latido 1.5s infinite;
+    font-size:8rem;
+    animation:latido 1.5s infinite;
     animation-play-state: paused;
 }
+@keyframes latido{
+    0%{ transform: scale(1); }
+    50%{ transform: scale(1.15); }
+    100%{ transform: scale(1); }
+}
+
 /* Lluvia de corazones */
 .corazon-flotante{
     position:fixed;
-    top: -40px;
+    top:-40px;
     font-size:18px;
     animation:caer linear forwards;
-    pointer-events: none;
-    user-select: none;
-    z-index: 50;
+    pointer-events:none;
+    user-select:none;
+    z-index:50;
 }
 @keyframes caer{
-    from {
-        transform:translate(0, 0);
-        opacity:1;
-    }
-    to {
-        transform:translate(var(--viento),100vh);
-        opacity:0;
-    }
+    from { transform:translate(0,0); opacity:1; }
+    to { transform:translate(var(--viento),100vh); opacity:0; }
 }
+
+/* Corazones touch */
+.corazon-touch{
+    position:fixed;
+    pointer-events:none;
+    font-size:18px;
+    z-index:9999;
+    animation:explosion 0.8s ease-out forwards;
+}
+@keyframes explosion{
+    from { transform:translate(0,0) scale(1); opacity:1; }
+    to { transform:translate(var(--dx), var(--dy)) scale(0.4); opacity:0; }
+}
+
 /* Modo noche */
 body.noche{background:#2c003e;color:white;}
 body.noche .sobre{background:#ff4b81;}
 body.noche .solapa{background:#ff1f6e;}
-/* Estrellas */
 
+/* Estrellas */
 .estrella{
     position: fixed;
     color: white;
-    pointer-events: none;
+    pointer-events:none;
     animation: titilar 2.5s infinite alternate;
-    text-shadow:
-        0 0 4px white,
-        0 0 8px rgba(255,255,255,0.6);
-    z-index: 15;
+    text-shadow:0 0 4px white,0 0 8px rgba(255,255,255,0.6);
+    z-index:15;
 }
 @keyframes titilar{
-    0%{
-        opacity:0.3;
-        transform:scale(0.7);
-    }
-    100%{
-        opacity:1;
-        transform:scale(1);
-    }
+    0%{ opacity:0.3; transform:scale(0.7); }
+    100%{ opacity:1; transform:scale(1); }
 }
 .sello{
     position:absolute;
     top:85px;
     left:50%;
-    transform:translateX(-50%) rotate(0deg);
+    transform:translateX(-50%);
     width:46px;
     height:46px;
     background:white;
@@ -225,24 +185,6 @@ body.noche .solapa{background:#ff1f6e;}
     box-shadow:0 5px 10px rgba(0,0,0,0.25);
     z-index:5;
 }
-    .corazon-touch {
-    position: fixed;
-    pointer-events: none;
-    font-size: 18px;
-    z-index: 9999;
-    animation: explosion 0.8s ease-out forwards;
-}
-
-@keyframes explosion {
-    from {
-        transform: translate(0,0) scale(1);
-        opacity: 1;
-    }
-    to {
-        transform: translate(var(--dx), var(--dy)) scale(0.4);
-        opacity: 0;
-    }
-}
 </style>
 </head>
 <body>
@@ -253,9 +195,9 @@ body.noche .solapa{background:#ff1f6e;}
     <button id="btn-siguiente">Siguiente</button>
 </div>
 
-<!-- Pantalla de la carta -->
+<!-- Pantalla carta -->
 <div id="pantalla-carta" class="pantalla oculto">
-    <div id="sobre" class="sobre">
+    <div id="sobre" class="sobre cerrado">
         <div class="solapa-contenedor">
             <div class="solapa"></div>
         </div>
@@ -265,25 +207,23 @@ body.noche .solapa{background:#ff1f6e;}
 </div>
 
 <!-- Corazón final -->
-    <div id="contenedor-corazon-final">
-<div id="corazon-final">
-    <span>❤️</span>
+<div id="contenedor-corazon-final">
+    <div id="corazon-final"><span>❤️</span></div>
 </div>
-    </div>
 
 <!-- Música -->
 <audio id="musica" src="es-verdad-video-oficial.mp3"></audio>
 
 <script>
 window.onload = () => {
-
     const pantallaInicial = document.getElementById('pantalla-inicial');
     const pantallaCarta = document.getElementById('pantalla-carta');
     const btnSiguiente = document.getElementById('btn-siguiente');
     const sobre = document.getElementById('sobre');
     const carta = document.getElementById('carta');
     const musica = document.getElementById('musica');
-    const corazonFinal = document.getElementById('corazon-final');
+    const corazonFinal = document.getElementById('corazon-final').querySelector('span');
+    const contenedorCorazon = document.getElementById('contenedor-corazon-final');
     const body = document.body;
 
     musica.volume = 0.6;
@@ -295,130 +235,110 @@ Este es el primer regalo que te hago, de muchos que pienso hacerte, así que vet
 Gracias por hacer mis días más lindos y por estar conmigo.
 Te quiero mucho.`;
 
-    // 🌙 modo noche
+    // Modo noche
     const hora = new Date().getHours();
-    if (hora >= 18 || hora < 6) body.classList.add('noche');
+    if(hora >= 18 || hora < 6) body.classList.add('noche');
 
-    // 👉 BOTÓN SIGUIENTE
+    // Botón siguiente
     btnSiguiente.addEventListener("click", () => {
         pantallaInicial.classList.add("oculto");
         pantallaCarta.classList.remove("oculto");
         sobre.classList.add("visible");
+        sobre.classList.remove("cerrado");
+        sobre.classList.add("cerrado"); // mantiene cerrado hasta click
+        sobre.style.pointerEvents = 'auto';
     });
 
-    // ✉️ ABRIR SOBRE
+    // Abrir sobre
     sobre.addEventListener("click", () => {
+        sobre.classList.remove("cerrado");
         sobre.classList.add("abierto");
         musica.play();
-
         setTimeout(() => {
             carta.classList.add("mostrada");
             escribirCarta();
         }, 800);
     });
 
-    // ✍️ ESCRIBIR CARTA (AQUÍ ESTABA EL PROBLEMA)
+    // Escribir carta
     function escribirCarta() {
-        let i = 0;
-        carta.innerHTML = "";
-
+        let i=0;
+        carta.innerHTML='';
         const intervalo = setInterval(() => {
             carta.innerHTML += mensaje.charAt(i);
             i++;
-
-            if (i >= mensaje.length) {
+            carta.scrollTop = carta.scrollHeight;
+            if(i >= mensaje.length){
                 clearInterval(intervalo);
-
                 setTimeout(() => {
                     carta.classList.remove("mostrada");
-
+                    carta.classList.add("guardada");
                     setTimeout(() => {
                         sobre.classList.remove("abierto");
-
+                        sobre.classList.add("cerrado");
                         setTimeout(() => {
                             pantallaCarta.classList.add("oculto");
-                            const contenedor = document.getElementById('contenedor-corazon-final);
-                            contenedor.style.display = 'flex';
-                            corazonFinal.querySelector('span').style.animationPlayState = 'running';
+                            contenedorCorazon.style.display = 'flex';
+                            corazonFinal.style.animationPlayState = 'running';
                             crearCorazonEstrellas();
-
-                            setTimeout (() => {
-                                crearLluviaCorazones();
-                            },400);
-                        }, 1200);
-
-                    }, 1200);
-
-                }, 2000);
+                            crearLluviaCorazones();
+                        },1200);
+                    },1200);
+                },2000);
             }
-        }, 45);
+        },45);
     }
 
-    // 💖 lluvia de corazones
-    function crearLluviaCorazones() {
-        setInterval(() => {
-            const heart = document.createElement("div");
-            heart.className = "corazon-flotante";
-            heart.textContent = "❤️";
-            heart.style.left = Math.random() * window.innerWidth + "px";
-            heart.style.fontSize = (Math.random() * 10 + 12) + "px";
-            heart.style.setProperty("--viento", (Math.random() * 60 - 30) + "px");
-
+    // Lluvia de corazones
+    function crearLluviaCorazones(){
+        setInterval(()=>{
+            const heart = document.createElement('div');
+            heart.className = 'corazon-flotante';
+            heart.innerText = '❤️';
+            heart.style.left = Math.random()*window.innerWidth+'px';
+            heart.style.fontSize = (Math.random()*10+12)+'px';
+            heart.style.setProperty('--viento', (Math.random()*60-30)+'px');
             document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 6000);
-        }, 600);
+            setTimeout(()=>heart.remove(),6000);
+        },300);
     }
 
-    // ⭐ corazón de estrellas
-
+    // Corazón de estrellas
     function crearCorazonEstrellas(){
-    const centerX = window.innerWidth / 2;
-    const centerY = window.innerHeight / 2;
-    const scale = 9;
-    const total = 140;
-
-    for (let i = 0; i < total; i++) {
-        const t = i / total * Math.PI * 2;
-
-        const x = scale * 16 * Math.pow(Math.sin(t), 3);
-        const y = -scale * (
-            13 * Math.cos(t)
-            - 5 * Math.cos(2 * t)
-            - 2 * Math.cos(3 * t)
-            - Math.cos(4 * t)
-        );
-
-        const star = document.createElement("div");
-        star.className = "estrella";
-        star.textContent = "★";
-
-        star.style.left = (centerX + x) + "px";
-        star.style.top  = (centerY + y + 22) + "px"; // compensación real
-
-        star.style.fontSize = "10px";
-        document.body.appendChild(star);
+        const centerX = window.innerWidth/2;
+        const centerY = window.innerHeight/2;
+        const scale = 10;
+        const total = 140;
+        for(let i=0;i<total;i++){
+            const t = i/total * Math.PI*2;
+            const x = scale*16*Math.pow(Math.sin(t),3);
+            const y = -scale*(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t));
+            const star = document.createElement('div');
+            star.className='estrella';
+            star.textContent='★';
+            star.style.left = (centerX+x)+'px';
+            star.style.top  = (centerY+y)+'px';
+            star.style.fontSize = '10px';
+            document.body.appendChild(star);
+        }
     }
-}
 
-    // 💥 corazones touch
-    document.body.addEventListener("pointerdown", (e) => {
-        const x = e.clientX;
-        const y = e.clientY;
-
-        for (let i = 0; i < 6; i++) {
-            const c = document.createElement("div");
-            c.className = "corazon-touch";
-            c.textContent = "💖";
-            c.style.left = x + "px";
-            c.style.top = y + "px";
-
-            const ang = Math.random() * Math.PI * 2;
-            const dist = Math.random() * 60 + 20;
-            c.style.setProperty("--dx", Math.cos(ang) * dist + "px");
-            c.style.setProperty("--dy", Math.sin(ang) * dist + "px");
-
+    // Corazones al tocar
+    document.body.addEventListener("pointerdown", (e)=>{
+        const x=e.clientX;
+        const y=e.clientY;
+        for(let i=0;i<6;i++){
+            const c=document.createElement('div');
+            c.className='corazon-touch';
+            c.innerText='💖';
+            c.style.left = x+'px';
+            c.style.top = y+'px';
+            const ang=Math.random()*Math.PI*2;
+            const dist=Math.random()*60+20;
+            c.style.setProperty('--dx', Math.cos(ang)*dist+'px');
+            c.style.setProperty('--dy', Math.sin(ang)*dist+'px');
             document.body.appendChild(c);
-            setTimeout(() => c.remove(), 800);
+            setTimeout(()=>c.remove(),800);
         }
     });
 
@@ -426,16 +346,3 @@ Te quiero mucho.`;
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
