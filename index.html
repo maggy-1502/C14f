@@ -140,7 +140,7 @@ button:hover{transform:scale(1.1);}
 #contenedor-corazon-final{
     position: fixed;
     inset: 0;
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     z-index: 20;
@@ -153,6 +153,7 @@ button:hover{transform:scale(1.1);}
     display: flex;
     justify-content: center;
     align-items: center;
+    transform: translateY(6px);
 }
 
 #corazon-final span{
@@ -336,6 +337,8 @@ Te quiero mucho.`;
 
                         setTimeout(() => {
                             pantallaCarta.classList.add("oculto");
+                            const contenedor = document.getElementById('contenedor-corazon-final);
+                            contenedor.style.display = 'flex';
                             corazonFinal.querySelector('span').style.animationPlayState = 'running';
                             crearCorazonEstrellas();
 
@@ -423,6 +426,7 @@ Te quiero mucho.`;
 </script>
 </body>
 </html>
+
 
 
 
