@@ -148,16 +148,19 @@ button:hover{transform:scale(1.1);}
 }
 
 #corazon-final{
-    font-size: 8rem;
-    animation: latido 1.5s infinite;
-    animation-play-state: paused;
-    display: none;
+    width: 160px;
+    height: 160px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-@keyframes latido{
-    0%{ transform: translate(-50%, -50%) scale(1); }
-    50%{ transform: translate(-50%, -50%) scale(1.15); }
-    100%{ transform: translate(-50%, -50%) scale(1); }
+#corazon-final span{
+    font-size: 8rem;
+    line-height: 1;
+    display: block;
+    animation: latido 1.5s infinite;
+    animation-play-state: paused;
 }
 /* Lluvia de corazones */
 .corazon-flotante{
@@ -262,7 +265,9 @@ body.noche .solapa{background:#ff1f6e;}
 
 <!-- Corazón final -->
     <div id="contenedor-corazon-final">
-<div id="corazon-final">❤️</div>
+<div id="corazon-final">
+    <span>❤️</span>
+</div>
     </div>
 
 <!-- Música -->
@@ -331,8 +336,7 @@ Te quiero mucho.`;
 
                         setTimeout(() => {
                             pantallaCarta.classList.add("oculto");
-                            corazonFinal.style.display = "block";
-                            corazonFinal.style.animationPlayState = "running";
+                            corazonFinal.querySelector('span').style.animationPlayState = 'running';
                             crearCorazonEstrellas();
 
                             setTimeout (() => {
@@ -419,6 +423,7 @@ Te quiero mucho.`;
 </script>
 </body>
 </html>
+
 
 
 
