@@ -270,6 +270,12 @@ window.onload = () => {
     const musica = document.getElementById('musica');
     const corazonFinal = document.getElementById('corazon-final');
     const body = document.body;
+    btnSiguiente.addEventListener("click", siguientePantalla);
+
+function siguientePantalla() {
+    pantallaInicial.classList.add("oculto");
+    pantallaCarta.classList.remove("oculto");
+}
     musica.volume = 0.6;
 
     const mensaje = `Feliz San Valentín, muchas gracias por estar.
@@ -284,13 +290,7 @@ Te quiero mucho.`;
     if (hora >= 18 || hora < 6) body.classList.add('noche');
 
     // Botón Siguiente
-    window.addEventListener("DOMContentLoaded", () => {
-
-    const boton = document.getElementById("btn-siguiente");
-
-    boton.addEventListener("click", siguientePantalla);
-
-});
+  
 
     // Abrir sobre
     sobre.addEventListener('click', () => {
@@ -457,4 +457,5 @@ function crearExplosion(e) {
 </script>
 </body>
 </html>
+
 
