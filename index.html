@@ -209,6 +209,23 @@ body.noche .solapa{background:#ff1f6e;}
     box-shadow:0 5px 10px rgba(0,0,0,0.25);
     z-index:5;
 }
+    .corazon-touch {
+    position: fixed;
+    pointer-events: none;
+    font-size: 18px;
+    animation: explosion 0.8s ease-out forwards;
+}
+
+@keyframes explosion {
+    from {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: translate(var(--dx), var(--dy)) scale(0.5);
+        opacity: 0;
+    }
+}
 </style>
 </head>
 <body>
@@ -393,8 +410,39 @@ star.style.fontSize = (Math.random() * 4 + 8) + 'px';
 }
 crearCielo();
 }
+    document.addEventListener("click", crearExplosion);
+document.addEventListener("touchstart", crearExplosion);
+
+function crearExplosion(e) {
+
+    const x = e.touches ? e.touches[0].clientX : e.clientX;
+    const y = e.touches ? e.touches[0].clientY : e.clientY;
+
+    for (let i = 0; i < 8; i++) {
+
+        const corazon = document.createElement("div");
+        corazon.innerHTML = "💖";
+        corazon.className = "corazon-touch";
+
+        corazon.style.left = x + "px";
+        corazon.style.top = y + "px";
+
+        const angulo = Math.random() * 2 * Math.PI;
+        const distancia = Math.random() * 80 + 40;
+
+        corazon.style.setProperty("--dx", Math.cos(angulo) * distancia + "px");
+        corazon.style.setProperty("--dy", Math.sin(angulo) * distancia + "px");
+
+        document.body.appendChild(corazon);
+
+        setTimeout(() => {
+            corazon.remove();
+        }, 800);
+    }
+}
     }
 </script>
 </body>
 </html>
+
 
