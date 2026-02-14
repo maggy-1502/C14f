@@ -9,31 +9,25 @@
 body {
     touch-action: manipulation;
     font-family:'Segoe UI',sans-serif;
-    color:#000; /* texto negro de día */
+    color:#000;
     overflow:hidden;
     height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    margin: 0;
-    background: #ffc0cb; /* rosa de día */
+    background:#ffc0cb;
 }
 
 /* Modo noche */
 body.noche {
     background: radial-gradient(circle at bottom, #0d1b2a, #000814 70%);
-    color: white; /* texto blanco en noche */
+    color: white;
 }
-
-body.noche .sobre {
-    background: #ff4b81;
-}
-body.noche .solapa {
-    background: #ff1f6e;
-}
+body.noche .sobre { background: #ff4b81; }
+body.noche .solapa { background: #ff1f6e; }
 
 /* Pantallas */
-.pantalla{
+.pantalla {
     position:relative;
     z-index:5;
     width:100%;
@@ -42,12 +36,11 @@ body.noche .solapa {
     flex-direction:column;
     justify-content:center;
     align-items:center;
-    transition:opacity 1s;
 }
 .oculto{display:none;}
 
 /* Botón */
-button{
+button {
     padding:10px 20px;
     font-size:1.2rem;
     background-color:#ff6b81;
@@ -61,7 +54,7 @@ button{
 button:hover{transform:scale(1.1);}
 
 /* Sobre */
-.sobre{
+.sobre {
     width:260px;
     height:180px;
     background:#ff6b81;
@@ -73,18 +66,17 @@ button:hover{transform:scale(1.1);}
     transform-style:preserve-3d;
     transition:transform 1s, opacity 1s;
     cursor:pointer;
-    pointer-events:none;
     opacity:0;
 }
-.sobre.visible{opacity:1; pointer-events:auto;}
-.solapa{
+.sobre.visible { opacity:1; pointer-events:auto; }
+.solapa {
     width:100%;
     height:100%;
     background:#e44;
     border-top-left-radius:10px;
     border-top-right-radius:10px;
 }
-.solapa-contenedor{
+.solapa-contenedor {
     position:absolute;
     top:0;
     left:0;
@@ -94,9 +86,9 @@ button:hover{transform:scale(1.1);}
     transition:transform 1.2s ease;
     z-index:3;
 }
-.sobre.abierto .solapa-contenedor{transform:rotateX(-160deg);}
-.sobre.cerrado .solapa-contenedor{transform:rotateX(0deg);}
-.sello{
+.sobre.abierto .solapa-contenedor { transform:rotateX(-160deg); }
+.sobre.cerrado .solapa-contenedor { transform:rotateX(0deg); }
+.sello {
     position:absolute;
     top:85px;
     left:50%;
@@ -114,7 +106,7 @@ button:hover{transform:scale(1.1);}
 }
 
 /* Carta */
-.carta{
+.carta {
     width:300px;
     height:400px;
     background:white;
@@ -132,54 +124,45 @@ button:hover{transform:scale(1.1);}
     transition:opacity 1.2s ease, transform 1.2s ease;
     pointer-events:none;
 }
-.carta.mostrada{opacity:1; transform:translate(-50%, -50%) translateY(-40px);}
-.carta.guardada{opacity:0; transform:translate(-50%, -50%) translateY(80px);}
+.carta.mostrada { opacity:1; transform:translate(-50%, -50%) translateY(-40px); }
+.carta.guardada { opacity:0; transform:translate(-50%, -50%) translateY(80px); }
 
 /* Corazón final */
-/* Contenedor del corazón rojo final */
 #contenedor-corazon-final {
     position: fixed;
-    inset: 0; /* top:0; left:0; right:0; bottom:0; */
-    display: none; /* oculto hasta el final */
+    inset: 0;
+    display: none;
     justify-content: center;
     align-items: center;
-    z-index: 20;
-    pointer-events: none;
+    z-index:20;
+    pointer-events:none;
 }
-
-/* Corazón rojo final */
 #corazon-final {
-    width: 160px;
-    height: 160px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transform: none;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
-
 #corazon-final span {
-    font-size: 8rem;
-    line-height: 1;
-    display: block;
+    font-size:8rem;
+    display:block;
+    line-height:1;
     animation: latido 1.5s infinite;
-    animation-play-state: paused; /* empezará al final */
+    animation-play-state:paused;
+}
+@keyframes latido {
+    0% { transform:scale(1); }
+    50% { transform:scale(1.15); }
+    100% { transform:scale(1); }
 }
 
 /* Corazón de estrellas */
 .estrella {
     position: fixed;
-    color: white;
-    pointer-events: none;
+    color:white;
+    pointer-events:none;
+    text-shadow:0 0 4px white,0 0 8px rgba(255,255,255,0.6);
+    z-index:15;
     animation: titilar 2.5s infinite alternate;
-    text-shadow:
-        0 0 4px white,
-        0 0 8px rgba(255,255,255,0.6);
-    z-index: 15;
-}
-@keyframes latido{
-    0%{transform:scale(1);}
-    50%{transform:scale(1.15);}
-    100%{transform:scale(1);}
 }
 
 /* Cielo estrellado */
@@ -190,8 +173,8 @@ button:hover{transform:scale(1.1);}
     top:0;
     left:0;
     z-index:0;
-    overflow:hidden;
     pointer-events:none;
+    overflow:hidden;
 }
 .estrella-fondo {
     position:absolute;
@@ -199,11 +182,7 @@ button:hover{transform:scale(1.1);}
     pointer-events:none;
     animation: titilar 3s infinite alternate;
 }
-@keyframes titilar {
-    from { opacity:0.3; }
-    to { opacity:1; }
-}
-
+@keyframes titilar { from{opacity:0.3;} to{opacity:1;} }
 
 /* Corazones touch */
 .corazon-touch{
@@ -213,10 +192,7 @@ button:hover{transform:scale(1.1);}
     z-index:9999;
     animation: explosion 0.8s ease-out forwards;
 }
-@keyframes explosion{
-    from{transform:translate(0,0) scale(1); opacity:1;}
-    to{transform:translate(var(--dx), var(--dy)) scale(0.4); opacity:0;}
-}
+@keyframes explosion{ from{transform:translate(0,0) scale(1); opacity:1;} to{transform:translate(var(--dx), var(--dy)) scale(0.4); opacity:0;} }
 
 /* Lluvia de corazones */
 .corazon-flotante{
@@ -228,52 +204,41 @@ button:hover{transform:scale(1.1);}
     user-select:none;
     z-index:50;
 }
-@keyframes caer{
-    from{transform:translate(0,0); opacity:1;}
-    to{transform:translate(var(--viento),100vh); opacity:0;}
-}
+@keyframes caer{ from{transform:translate(0,0);opacity:1;} to{transform:translate(var(--viento),100vh);opacity:0;} }
 </style>
 </head>
 <body>
 
-<!-- Pantalla inicial -->
 <div id="pantalla-inicial" class="pantalla">
     <h1>Feliz San Valentín</h1>
     <button id="btn-siguiente">Siguiente</button>
 </div>
 
-<!-- Pantalla de carta -->
 <div id="pantalla-carta" class="pantalla oculto">
-    <div id="sobre" class="sobre">
-        <div class="solapa-contenedor">
-            <div class="solapa"></div>
-        </div>
+    <div id="sobre" class="sobre cerrado">
+        <div class="solapa-contenedor"><div class="solapa"></div></div>
         <div class="sello">🩷</div>
     </div>
     <div id="carta" class="carta"></div>
 </div>
 
-<!-- Corazón final -->
 <div id="contenedor-corazon-final">
     <div id="corazon-final"><span>❤️</span></div>
 </div>
 
-<!-- Música -->
 <audio id="musica" src="es-verdad-video-oficial.mp3"></audio>
 
 <script>
 window.onload = () => {
-    const pantallaInicial = document.getElementById('pantalla-inicial');
-    const pantallaCarta = document.getElementById('pantalla-carta');
-    const btnSiguiente = document.getElementById('btn-siguiente');
-    const sobre = document.getElementById('sobre');
-    const carta = document.getElementById('carta');
-    const musica = document.getElementById('musica');
-    const corazonFinal = document.getElementById('corazon-final');
-    const contenedorCorazonFinal = document.getElementById('contenedor-corazon-final');
+    const pantallaInicial = document.getElementById("pantalla-inicial");
+    const pantallaCarta = document.getElementById("pantalla-carta");
+    const btnSiguiente = document.getElementById("btn-siguiente");
+    const sobre = document.getElementById("sobre");
+    const carta = document.getElementById("carta");
+    const musica = document.getElementById("musica");
+    const contenedorCorazonFinal = document.getElementById("contenedor-corazon-final");
+    const corazonFinal = document.getElementById("corazon-final").querySelector("span");
     const body = document.body;
-
-    musica.volume = 0.6;
 
     const mensaje = `Feliz San Valentín, muchas gracias por estar.
 Es el primer San Valentín que paso con alguien jaja, y la verdad me hace muy feliz que seas tú.
@@ -282,67 +247,40 @@ Este es el primer regalo que te hago, de muchos que pienso hacerte, así que vet
 Gracias por hacer mis días más lindos y por estar conmigo.
 Te quiero mucho.`;
 
-    // BOTÓN SIGUIENTE
-    btnSiguiente.addEventListener("click", () => {
+    // Modo noche
+    const hora = new Date().getHours();
+    if(hora>=18||hora<6) body.classList.add("noche");
+
+    // Botón siguiente
+    btnSiguiente.addEventListener("click", ()=>{
         pantallaInicial.classList.add("oculto");
         pantallaCarta.classList.remove("oculto");
         sobre.classList.add("visible");
     });
 
-    // ABRIR SOBRE
-    sobre.addEventListener("click", () => {
+    // Abrir sobre
+    sobre.addEventListener("click", ()=>{
+        sobre.classList.remove("cerrado");
         sobre.classList.add("abierto");
         musica.play();
-        setTimeout(()=>{carta.classList.add("mostrada"); escribirCarta();},800);
+        setTimeout(()=>{
+            carta.classList.add("mostrada");
+            escribirCarta();
+        },800);
     });
 
-    // ESCRIBIR CARTA
+    // Escribir carta
     function escribirCarta(){
-        let i=0;
-        carta.innerHTML="";
+        let i=0; carta.innerHTML="";
         const intervalo = setInterval(()=>{
             carta.innerHTML += mensaje.charAt(i);
             i++;
             if(i>=mensaje.length){
                 clearInterval(intervalo);
-                setTimeout(()=>{
-                    carta.classList.remove("mostrada");
-                    setTimeout(()=>{
-                        sobre.classList.remove("abierto");
-                        setTimeout(()=>{
-                            pantallaCarta.classList.add("oculto");
+                setTimeout(()=>{ carta.classList.remove("mostrada");
+                    setTimeout(()=>{ sobre.classList.remove("abierto");
+                        setTimeout(()=>{ pantallaCarta.classList.add("oculto");
                             mostrarFinal();
-                            function mostrarFinal() {
-    const contenedor = document.getElementById('contenedor-corazon-final');
-    const corazonFinal = document.getElementById('corazon-final');
-
-    // Mostrar corazón rojo
-    contenedor.style.display = 'flex';
-    corazonFinal.querySelector('span').style.animationPlayState = 'running';
-
-    // Dibujar corazón de estrellas alineado
-    crearCorazonEstrellas();
-}
-
-function crearCorazonEstrellas(){
-    const centerX = window.innerWidth/2;
-    const centerY = window.innerHeight/2;
-    const scale = Math.min(window.innerWidth, window.innerHeight)/50; // escala proporcional
-    const total = 160;
-
-    for(let i=0;i<total;i++){
-        const t = i / total * Math.PI * 2;
-        const x = scale * 16 * Math.pow(Math.sin(t),3);
-        const y = -scale*(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t));
-        const star = document.createElement('div');
-        star.className='estrella';
-        star.textContent='★';
-        star.style.left = centerX+x+'px';
-        star.style.top = centerY+y+'px';
-        star.style.fontSize = (Math.random()*4+8)+'px';
-        document.body.appendChild(star);
-    }
-}
                         },1200);
                     },1200);
                 },2000);
@@ -350,49 +288,65 @@ function crearCorazonEstrellas(){
         },45);
     }
 
-    // CORAZONES TOUCH
+    // Mostrar final
+    function mostrarFinal(){
+        contenedorCorazonFinal.style.display="flex";
+        corazonFinal.style.animationPlayState="running";
+        crearCorazonEstrellas();
+    }
+
+    // Corazón de estrellas
+    function crearCorazonEstrellas(){
+        const centerX = window.innerWidth/2;
+        const centerY = window.innerHeight/2;
+        const scale = 12;
+        const total = 160;
+        for(let i=0;i<total;i++){
+            const t = i/total*Math.PI*2;
+            const x = scale*16*Math.pow(Math.sin(t),3);
+            const y = -scale*(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t));
+            const star = document.createElement("div");
+            star.className="estrella";
+            star.textContent="★";
+            star.style.left=(centerX+x)+"px";
+            star.style.top=(centerY+y)+"px";
+            star.style.fontSize=(Math.random()*4+8)+"px";
+            document.body.appendChild(star);
+        }
+    }
+
+    // Corazones touch
     document.body.addEventListener("pointerdown",(e)=>{
         const x=e.clientX; const y=e.clientY;
         for(let i=0;i<6;i++){
             const c=document.createElement("div");
-            c.className="corazon-touch";
-            c.textContent="💖";
-            c.style.left=x+"px";
-            c.style.top=y+"px";
-            const ang=Math.random()*Math.PI*2;
-            const dist=Math.random()*60+20;
+            c.className="corazon-touch"; c.textContent="💖";
+            c.style.left=x+"px"; c.style.top=y+"px";
+            const ang=Math.random()*Math.PI*2; const dist=Math.random()*60+20;
             c.style.setProperty("--dx",Math.cos(ang)*dist+"px");
             c.style.setProperty("--dy",Math.sin(ang)*dist+"px");
-            document.body.appendChild(c);
-            setTimeout(()=>c.remove(),800);
+            document.body.appendChild(c); setTimeout(()=>c.remove(),800);
         }
     });
 
-    // CIELO ESTRELLADO
+    // Cielo estrellado
     function crearCielo(){
-    const cielo = document.createElement('div');
-    cielo.className='cielo';
-    cielo.style.zIndex=1; // ahora estará encima del fondo, debajo de la carta
-    document.body.appendChild(cielo);
-    const totalEstrellas = 150;
-    for(let i=0;i<totalEstrellas;i++){
-        const e = document.createElement('div');
-        e.className='estrella-fondo';
-        e.textContent='★';
-        const s = Math.random();
-        e.style.fontSize = s<0.6?'6px':s<0.9?'9px':'12px';
-        e.style.opacity = Math.random()*0.7+0.3;
-        e.style.left = Math.random()*window.innerWidth+'px';
-        e.style.top = Math.random()*window.innerHeight+'px';
-        cielo.appendChild(e);
+        const cielo=document.createElement("div"); cielo.className="cielo"; document.body.appendChild(cielo);
+        for(let i=0;i<150;i++){
+            const e=document.createElement("div"); e.className="estrella-fondo"; e.textContent="★";
+            const s=Math.random();
+            if(s<0.6)e.style.fontSize="6px";
+            else if(s<0.9)e.style.fontSize="9px";
+            else e.style.fontSize="12px";
+            e.style.opacity=Math.random()*0.7+0.3;
+            e.style.left=Math.random()*window.innerWidth+"px";
+            e.style.top=Math.random()*window.innerHeight+"px";
+            cielo.appendChild(e);
+        }
     }
-}
-crearCielo();
+    crearCielo();
+};
 </script>
+
 </body>
 </html>
-
-
-
-
-
