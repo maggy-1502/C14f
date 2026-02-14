@@ -137,27 +137,21 @@ button:hover{transform:scale(1.1);}
 .carta.mostrada{opacity:1; transform:translate(-50%, -50%) translateY(-40px);}
 .carta.guardada{opacity:0; transform:translate(-50%, -50%) translateY(80px);}
 /* Corazón final */
-#contenedor-final{
+#contenedor-corazon-final{
     position: fixed;
     inset: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 20;
     pointer-events: none;
-    z-index: 10;
 }
 
 #corazon-final{
-    position: fixed;
-    inset: 0;
-    margin: auto;
-    width: max-content;
-    height: max-content;
     font-size: 8rem;
     animation: latido 1.5s infinite;
     animation-play-state: paused;
     display: none;
-    z-index: 20;
 }
 
 @keyframes latido{
@@ -267,7 +261,9 @@ body.noche .solapa{background:#ff1f6e;}
 </div>
 
 <!-- Corazón final -->
+    <div id="contenedor-corazon-final">
 <div id="corazon-final">❤️</div>
+    </div>
 
 <!-- Música -->
 <audio id="musica" src="es-verdad-video-oficial.mp3"></audio>
@@ -423,6 +419,7 @@ Te quiero mucho.`;
 </script>
 </body>
 </html>
+
 
 
 
