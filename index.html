@@ -260,9 +260,8 @@ body.noche .solapa{background:#ff1f6e;}
 <!-- Música -->
 <audio id="musica" src="es-verdad-video-oficial.mp3"></audio>
 
-    <script>
+<script>
 window.onload = () => {
-
     const pantallaInicial = document.getElementById('pantalla-inicial');
     const pantallaCarta = document.getElementById('pantalla-carta');
     const btnSiguiente = document.getElementById('btn-siguiente');
@@ -271,60 +270,194 @@ window.onload = () => {
     const musica = document.getElementById('musica');
     const corazonFinal = document.getElementById('corazon-final');
     const body = document.body;
-
     musica.volume = 0.6;
 
-    btnSiguiente.addEventListener("click", siguientePantalla);
+    const mensaje = `Feliz San Valentín, muchas gracias por estar.
+Es el primer San Valentín que paso con alguien jaja, y la verdad me hace muy feliz que seas tú. 
+No soy muy buena escribiendo ni expresando lo que siento, pero quería intentar decirte que me importas muchísimo. 
+Este es el primer regalo que te hago, de muchos que pienso hacerte, así que vete acostumbrando jaja.
+Gracias por hacer mis días más lindos y por estar conmigo.
+Te quiero mucho.`;
 
-    function siguientePantalla() {
-        pantallaInicial.classList.add('oculto');
-        pantallaCarta.classList.remove('oculto');
-        sobre.classList.add('visible');
-    }
+    // Modo noche
+    const hora = new Date().getHours();
+    if (hora >= 18 || hora < 6) body.classList.add('noche');
 
+    // Botón Siguiente
+    window.addEventListener("DOMContentLoaded", () => {
+
+    const boton = document.getElementById("btnSiguiente");
+
+    boton.addEventListener("click", siguientePantalla);
+
+});
+
+    // Abrir sobre
     sobre.addEventListener('click', () => {
+        sobre.classList.remove('cerrado');
         sobre.classList.add('abierto');
         musica.play();
+        setTimeout(() => {
+            carta.classList.add('mostrada');
+            escribirCarta();
+        }, 800);
     });
 
-    document.body.addEventListener("pointerdown", crearExplosion);
-
-    function crearExplosion(e) {
-
-        let x = e.clientX;
-        let y = e.clientY;
-
-        for (let i = 0; i < 6; i++) {
-
-            const corazon = document.createElement("div");
-            corazon.className = "corazon-touch";
-            corazon.textContent = "💖";
-
-            corazon.style.left = x + "px";
-            corazon.style.top = y + "px";
-
-            const angulo = Math.random() * Math.PI * 2;
-            const distancia = Math.random() * 60 + 30;
-
-            corazon.style.setProperty("--dx", Math.cos(angulo) * distancia + "px");
-            corazon.style.setProperty("--dy", Math.sin(angulo) * distancia + "px");
-
-            document.body.appendChild(corazon);
-
-            setTimeout(() => corazon.remove(), 800);
-        }
+    function escribirCarta() {
+        let i = 0;
+        carta.innerHTML = '';
+        const intervalo = setInterval(() => {
+            carta.innerHTML += mensaje.charAt(i);
+            i++;
+            carta.scrollTop = carta.scrollHeight;
+            if (i === mensaje.length) {
+                clearInterval(intervalo);
+                // Pausa antes de cerrar
+                setTimeout(() => {
+                    carta.classList.remove('mostrada');
+                    carta.classList.add('guardada');
+                    setTimeout(() => {
+                        sobre.classList.remove('abierto');
+                        sobre.classList.add('cerrado');
+                        setTimeout(() => {
+                            pantallaCarta.classList.add('oculto');
+                            pantallaCarta.style.pointerEvents = 'none';
+                            corazonFinal.style.display = 'block';
+                            corazonFinal.style.animationPlayState = 'running';
+                            // Lluvia de corazones
+                            crearLluviaCorazones();
+                            if(body.classList.contains('noche')) crearCorazonEstrellas();
+                        }, 1200);
+                    }, 1200);
+                }, 2000);
+            }
+        }, 50);
     }
 
-};
+    function crearLluviaCorazones(){
+        setInterval(()=>{
+            const heart = document.createElement('div');
+            heart.classList.add('corazon-flotante');
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            heart.style.top = '-50px';
+            const size = Math.random() * 1.5 + 0.8;
+            heart.style.fontSize = size + "px";
+            heart.style.color = '#ff4b81';
+            heart.innerText = '❤️';
+            const duration = Math.random() * 3 + 4;
+            heart.style.animationDuration = duration + "s";
+            document.body.appendChild(heart);
+            const viento = Math.random() > 0.5 ? "30px" : "-30px";
+            heart.style.setProperty("--viento",viento);
+            setTimeout(() => heart.remove(), 6000);
+        }, 300);
+        if (document.querySelectorAll('.corazon').length > 40) return;
+    }
+
+    function crearCorazonEstrellas() {
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+    const scale = 12;
+    const total = 160;
+
+    for (let i = 0; i < total; i++) {
+        const t = i / total * Math.PI * 2;
+
+        const x = scale * 16 * Math.pow(Math.sin(t), 3);
+        const y = -scale * (
+            13 * Math.cos(t)
+            - 5 * Math.cos(2 * t)
+            - 2 * Math.cos(3 * t)
+            - Math.cos(4 * t)
+        );
+
+        const star = document.createElement('div');
+        star.className = 'estrella';
+
+        // micro variación para evitar amontonamientos
+        const jitter = 0.8;
+        star.style.left = (centerX + x + (Math.random() - 0.5) * jitter) + 'px';
+        star.style.top  = (centerY + y + (Math.random() - 0.5) * jitter) + 'px';
+
+        const size = Math.random() * 1.5 + 3;
+        star.textContent = '★';
+star.style.fontSize = (Math.random() * 4 + 8) + 'px';
+
+        document.body.appendChild(star);
+    }
+    function crearCielo() {
+    const cielo = document.createElement('div');
+    cielo.className = 'cielo';
+    document.body.appendChild(cielo);
+
+    const totalEstrellas = 150;
+
+    for (let i = 0; i < totalEstrellas; i++) {
+        const estrella = document.createElement('div');
+        estrella.className = 'estrella-fondo';
+        estrella.textContent = '★';
+
+        const sizeRandom = Math.random();
+
+        // 3 capas de profundidad
+        if (sizeRandom < 0.6) {
+            estrella.style.fontSize = '6px';   // lejanas
+            estrella.style.opacity = 0.4;
+        } else if (sizeRandom < 0.9) {
+            estrella.style.fontSize = '9px';   // medias
+            estrella.style.opacity = 0.7;
+        } else {
+            estrella.style.fontSize = '12px';  // cercanas
+            estrella.style.opacity = 1;
+        }
+
+        estrella.style.left = Math.random() * window.innerWidth + 'px';
+        estrella.style.top = Math.random() * window.innerHeight + 'px';
+
+        cielo.appendChild(estrella);
+    }
+}
+crearCielo();
+}
+   document.body.addEventListener("pointerdown",crearExplosion);
+function crearExplosion(e) {
+
+    let x, y;
+
+    if (e.touches && e.touches.length > 0) {
+        x = e.touches[0].clientX;
+        y = e.touches[0].clientY;
+    } else {
+        x = e.clientX;
+        y = e.clientY;
+    }
+
+    for (let i = 0; i < 6; i++) {
+
+        const corazon = document.createElement("div");
+        corazon.className = "corazon-touch";
+        corazon.textContent = "💖";
+
+        corazon.style.left = x + "px";
+        corazon.style.top = y + "px";
+
+        const angulo = Math.random() * Math.PI * 2;
+        const distancia = Math.random() * 60 + 30;
+
+        corazon.style.setProperty("--dx", Math.cos(angulo) * distancia + "px");
+        corazon.style.setProperty("--dy", Math.sin(angulo) * distancia + "px");
+
+        document.body.appendChild(corazon);
+
+        setTimeout(() => corazon.remove(), 800);
+    }
+}
+}
+    function siguientePantalla() {
+    console.log("Botón funcionando");
+    // tu código para cambiar pantalla
+}
+    }
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
