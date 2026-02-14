@@ -7,6 +7,7 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
+    touch-action: manipulation;
     font-family:'Segoe UI',sans-serif;
     background:#ffc0cb;
     color:#fff;
@@ -27,7 +28,7 @@ body{
     height: 100%;
     top: 0;
     left: 0;
-    z-index: -1;
+    z-index: 0;
     overflow: hidden;
     pointer-events: none;
 }
@@ -45,7 +46,8 @@ body{
 }
 /* Pantallas */
 .pantalla{
-    position:absolute;
+    position:relative;
+    z-index: 5;
     width:100%;
     height:100%;
     display:flex;
@@ -59,7 +61,7 @@ body{
 /* Botón */
 button{
     position: relative;
-    z-index: 10;
+    z-index: 9999;
     padding:10px 20px;
     font-size:1.2rem;
     background-color:#ff6b81;
@@ -283,7 +285,7 @@ Te quiero mucho.`;
     if (hora >= 18 || hora < 6) body.classList.add('noche');
 
     // Botón Siguiente
-    btnSiguiente.addEventListener('click', () => {
+    btnSiguiente.addEventListener("pointerdown",siguientePantalla); () => {
         pantallaInicial.classList.add('oculto');
         pantallaCarta.classList.remove('oculto');
         sobre.classList.add('visible');
@@ -416,8 +418,7 @@ star.style.fontSize = (Math.random() * 4 + 8) + 'px';
 }
 crearCielo();
 }
-   document.body.addEventListener("touchstart", crearExplosion, { passive: true });
-document.body.addEventListener("click", crearExplosion);
+   document.body.addEventListener("pointerdown",crearExplosion);
 function crearExplosion(e) {
 
     let x, y;
@@ -455,6 +456,7 @@ function crearExplosion(e) {
 </script>
 </body>
 </html>
+
 
 
 
