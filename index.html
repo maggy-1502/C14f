@@ -136,20 +136,44 @@ button:hover{transform:scale(1.1);}
 .carta.guardada{opacity:0; transform:translate(-50%, -50%) translateY(80px);}
 
 /* Corazón final */
-#contenedor-corazon-final{
+/* Contenedor del corazón rojo final */
+#contenedor-corazon-final {
     position: fixed;
-    inset:0;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index:20;
-    pointer-events:none;
-    display:none;
+    inset: 0; /* top:0; left:0; right:0; bottom:0; */
+    display: none; /* oculto hasta el final */
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+    pointer-events: none;
 }
-#corazon-final span{
-    font-size:8rem;
-    animation:latido 1.5s infinite;
-    animation-play-state:paused;
+
+/* Corazón rojo final */
+#corazon-final {
+    width: 160px;
+    height: 160px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#corazon-final span {
+    font-size: 8rem;
+    line-height: 1;
+    display: block;
+    animation: latido 1.5s infinite;
+    animation-play-state: paused; /* empezará al final */
+}
+
+/* Corazón de estrellas */
+.estrella {
+    position: fixed;
+    color: white;
+    pointer-events: none;
+    animation: titilar 2.5s infinite alternate;
+    text-shadow:
+        0 0 4px white,
+        0 0 8px rgba(255,255,255,0.6);
+    z-index: 15;
 }
 @keyframes latido{
     0%{transform:scale(1);}
@@ -179,15 +203,6 @@ button:hover{transform:scale(1.1);}
     to { opacity:1; }
 }
 
-/* Corazón de estrellas */
-.estrella{
-    position:fixed;
-    color:white;
-    pointer-events:none;
-    animation: titilar 2.5s infinite alternate;
-    text-shadow:0 0 4px white, 0 0 8px rgba(255,255,255,0.6);
-    z-index:15;
-}
 
 /* Corazones touch */
 .corazon-touch{
@@ -295,34 +310,49 @@ Te quiero mucho.`;
                         sobre.classList.remove("abierto");
                         setTimeout(()=>{
                             pantallaCarta.classList.add("oculto");
-                            contenedorCorazonFinal.style.display="flex";
-                            corazonFinal.querySelector('span').style.animationPlayState="running";
-                            crearCorazonEstrellas();
+                            function mostrarFinal() {
+    const contenedor = document.getElementById('contenedor-corazon-final');
+    const corazonFinal = document.getElementById('corazon-final');
+
+    // Mostrar corazón rojo
+    contenedor.style.display = 'flex';
+    corazonFinal.querySelector('span').style.animationPlayState = 'running';
+
+    // Dibujar corazón de estrellas alineado
+    crearCorazonEstrellas();
+}
+
+function crearCorazonEstrellas(){
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2; // mismo centro que el rojo
+    const scale = 12; // más grande si quieres
+    const total = 160;
+
+    for (let i = 0; i < total; i++) {
+        const t = i / total * Math.PI * 2;
+        const x = scale * 16 * Math.pow(Math.sin(t), 3);
+        const y = -scale * (
+            13 * Math.cos(t)
+            - 5 * Math.cos(2 * t)
+            - 2 * Math.cos(3 * t)
+            - Math.cos(4 * t)
+        );
+
+        const star = document.createElement("div");
+        star.className = "estrella";
+        star.textContent = "★";
+
+        star.style.left = (centerX + x) + "px";
+        star.style.top  = (centerY + y) + "px"; // alineado vertical con el rojo
+        star.style.fontSize = (Math.random() * 4 + 8) + "px"; // tamaño variable
+        document.body.appendChild(star);
+    }
+}
                         },1200);
                     },1200);
                 },2000);
             }
         },45);
-    }
-
-    // CORAZÓN DE ESTRELLAS
-    function crearCorazonEstrellas(){
-        const centerX = window.innerWidth/2;
-        const centerY = window.innerHeight/2;
-        const scale = 15;
-        const total = 140;
-        for(let i=0;i<total;i++){
-            const t = i/total * Math.PI*2;
-            const x = scale*16*Math.pow(Math.sin(t),3);
-            const y = -scale*(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t));
-            const star = document.createElement("div");
-            star.className="estrella";
-            star.textContent="★";
-            star.style.left=(centerX+x)+"px";
-            star.style.top=(centerY+y+22)+"px";
-            star.style.fontSize="10px";
-            document.body.appendChild(star);
-        }
     }
 
     // CORAZONES TOUCH
@@ -368,6 +398,7 @@ Te quiero mucho.`;
 </script>
 </body>
 </html>
+
 
 
 
